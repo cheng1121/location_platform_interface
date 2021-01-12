@@ -51,9 +51,8 @@ class LocationChannel extends LocationPlatform {
 
   @override
   Future<LocationModel> fetchLocation() async {
-    final Map<String, double> result =
-        await _methodChannel.invokeMethod('fetchLocation');
-    return LocationModel.fromMap(result);
+    final Map result = await _methodChannel.invokeMethod('fetchLocation');
+    return LocationModel.fromMap(result.cast<String, double>());
   }
 
   @override
