@@ -41,7 +41,7 @@ class LocationPlatform extends PlatformInterface {
     throw UnimplementedError();
   }
 
-  Future<bool> openService() {
+  Future<bool> checkLocationService() {
     throw UnimplementedError();
   }
 

@@ -55,8 +55,8 @@ class LocationChannel extends LocationPlatform {
   }
 
   @override
-  Future<bool> openService() async{
-    final int result = await _methodChannel.invokeMethod('openService');
+  Future<bool> checkLocationService() async{
+    final int result = await _methodChannel.invokeMethod('checkLocationService');
     return result == 1;
   }
 
