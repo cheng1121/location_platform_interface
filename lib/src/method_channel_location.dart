@@ -35,33 +35,34 @@ class LocationChannel extends LocationPlatform {
   }
 
   @override
-  Future<bool> isBackground() async{
+  Future<bool> isBackground() async {
     final int result = await _methodChannel.invokeMethod('isBackground');
     return result == 1;
   }
 
   @override
-  Future<bool> setBackground({bool enable}) async{
-     final int result = await _methodChannel.invokeMethod('setBackground',<String,dynamic>{
-       'enable':enable,
-     });
+  Future<bool> setBackground({bool enable}) async {
+    final int result =
+        await _methodChannel.invokeMethod('setBackground', <String, dynamic>{
+      'enable': enable,
+    });
     return result == 1;
   }
 
   @override
-  Future<LocationModel> fetchLocation() async{
-    final Map<String,double> result = await _methodChannel.invokeMethod('fetchLocation');
+  Future<LocationModel> fetchLocation() async {
+    final Map<String, double> result =
+        await _methodChannel.invokeMethod('fetchLocation');
     return LocationModel.fromMap(result);
   }
 
   @override
-  Future<bool> checkLocationService() async{
-    final int result = await _methodChannel.invokeMethod('checkLocationService');
-    return result == 1;
+  Future<bool> checkLocationService() async {
+    return await _methodChannel.invokeMethod('checkLocationService');
   }
 
-  // @override
-  // Stream<LocationModel> get onLocation => _onChanged ??= _eventChannel
-  //     .receiveBroadcastStream()
-  //     .map<LocationModel>((dynamic event) => LocationModel.fromMap(event) );
+// @override
+// Stream<LocationModel> get onLocation => _onChanged ??= _eventChannel
+//     .receiveBroadcastStream()
+//     .map<LocationModel>((dynamic event) => LocationModel.fromMap(event) );
 }
