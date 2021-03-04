@@ -1,7 +1,6 @@
 name: location_platform_interface
 description:  location interface library
-version: 0.0.2
-author:
+version: 0.0.5
 homepage:
 publish_to: none
 
