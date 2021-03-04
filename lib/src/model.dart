@@ -6,8 +6,8 @@ class LocationModel {
 
   factory LocationModel.fromMap(Map<String, double> dataMap) {
     return LocationModel._(
-      dataMap['latitude'],
-      dataMap['longitude'],
+      dataMap['latitude']!,
+      dataMap['longitude']!,
       dataMap['accuracy'],
       dataMap['altitude'],
       dataMap['speed'],
@@ -21,14 +21,14 @@ class LocationModel {
 
   final double longitude;
 
-  final double accuracy;
-  final double altitude;
-  final double speed;
+  final double? accuracy;
+  final double? altitude;
+  final double? speed;
 
   ///  iOS is 0
-  final double speedAccuracy;
-  final double heading;
-  final double time;
+  final double? speedAccuracy;
+  final double? heading;
+  final double? time;
 
   @override
   String toString() => 'LocationData<lat: $latitude, long: $longitude>';

@@ -2,62 +2,65 @@ part of location_platform_interface;
 
 class LocationChannel extends LocationPlatform {
   factory LocationChannel() {
-    if (_instance == null) {
-      const MethodChannel methodChannel =
-          MethodChannel('com.bd.cheng/location');
-      const EventChannel eventChannel =
-          EventChannel('com.bd.cheng/locationStream');
-      _instance = LocationChannel._(methodChannel, eventChannel);
-    }
+    _instance = LocationChannel._();
     return _instance;
   }
 
-  LocationChannel._(this._methodChannel, this._eventChannel);
+  LocationChannel._()
+      : _methodChannel = const MethodChannel('com.bd.cheng/location'),
+        _eventChannel = const EventChannel('com.bd.cheng/locationStream');
 
-  static LocationChannel _instance;
+  static late LocationChannel _instance;
   final MethodChannel _methodChannel;
   final EventChannel _eventChannel;
 
-  Stream<LocationModel> _onChanged;
+  late Stream<LocationModel> _onChanged;
 
   @override
   Future<bool> setSettings(
       {LocationMode mode = LocationMode.high,
       int interval = 1000,
       double distanceFilter = 0}) async {
-    final int result =
-        await _methodChannel.invokeMethod('setSetting', <String, dynamic>{
+    final int? result =
+        await _methodChannel.invokeMethod('setSetting', <String, Object>{
       'mode': mode.index,
       'interval': interval,
       'distanceFilter': distanceFilter,
     });
-    return result == 1;
+    return result != null && result == 1;
   }
 
   @override
   Future<bool> isBackground() async {
-    final int result = await _methodChannel.invokeMethod('isBackground');
-    return result == 1;
+    final int? result = await _methodChannel.invokeMethod('isBackground');
+    return result != null && result == 1;
   }
 
   @override
-  Future<bool> setBackground({bool enable}) async {
-    final int result =
+  Future<bool> setBackground({required bool enable}) async {
+    final int? result =
         await _methodChannel.invokeMethod('setBackground', <String, dynamic>{
       'enable': enable,
     });
-    return result == 1;
+    return result != null && result == 1;
   }
 
   @override
-  Future<LocationModel> fetchLocation() async {
-    final Map result = await _methodChannel.invokeMethod('fetchLocation');
-    return LocationModel.fromMap(result.cast<String, double>());
+  Future<LocationModel?> fetchLocation() async {
+    final Map<Object, Object>? result =
+        await _methodChannel.invokeMethod('fetchLocation');
+    if (result != null) {
+      return LocationModel.fromMap(result.cast<String, double>());
+    }
+
+    return null;
   }
 
   @override
   Future<bool> checkLocationService() async {
-    return await _methodChannel.invokeMethod('checkLocationService');
+    final bool? result =
+        await _methodChannel.invokeMethod<bool>('checkLocationService');
+    return result ?? false;
   }
 
 // @override

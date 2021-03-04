@@ -22,9 +22,9 @@ class LocationPlatform extends PlatformInterface {
   }
 
   Future<bool> setSettings({
-    LocationMode mode,
-    int interval,
-    double distanceFilter,
+     LocationMode mode = LocationMode.low,
+     int interval = 1000,
+     double distanceFilter = 500,
   }) {
     throw UnimplementedError();
   }
@@ -33,11 +33,11 @@ class LocationPlatform extends PlatformInterface {
     throw UnimplementedError();
   }
 
-  Future<bool> setBackground({bool enable}) {
+  Future<bool> setBackground({required bool enable}) {
     throw UnimplementedError();
   }
 
-  Future<LocationModel> fetchLocation() {
+  Future<LocationModel?> fetchLocation() {
     throw UnimplementedError();
   }
 
@@ -45,7 +45,7 @@ class LocationPlatform extends PlatformInterface {
     throw UnimplementedError();
   }
 
-  Stream<LocationModel> get onLocation {
+  Stream<LocationModel?> get onLocation {
     throw UnimplementedError();
   }
 }
